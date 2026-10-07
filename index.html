@@ -1,0 +1,1102 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>3D Toy World | Daud Gill</title>
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    scroll-behavior:smooth;
+}
+
+body{
+    font-family:Arial, sans-serif;
+    background:#f4f4f4;
+    color:#222;
+}
+
+/* HEADER */
+
+header{
+    background:#111827;
+    color:white;
+    padding:18px 7%;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    position:sticky;
+    top:0;
+    z-index:1000;
+}
+
+.logo{
+    display:flex;
+    align-items:center;
+    gap:10px;
+}
+
+.logo-icon{
+    font-size:30px;
+}
+
+.logo h1{
+    font-size:25px;
+}
+
+.logo p{
+    font-size:12px;
+    color:#cbd5e1;
+    margin-top:3px;
+}
+
+nav a{
+    color:white;
+    text-decoration:none;
+    margin-left:25px;
+    font-weight:bold;
+}
+
+nav a:hover{
+    color:#60a5fa;
+}
+
+/* HERO */
+
+.hero{
+    text-align:center;
+    background:white;
+    padding:80px 20px;
+}
+
+.hero h2{
+    font-size:42px;
+    margin-bottom:15px;
+}
+
+.hero p{
+    color:#666;
+    font-size:17px;
+}
+
+/* PRODUCTS */
+
+section{
+    padding:55px 7%;
+}
+
+.section-title{
+    text-align:center;
+    font-size:30px;
+    margin-bottom:35px;
+}
+
+.products{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+    gap:25px;
+}
+
+.card{
+    background:white;
+    border-radius:15px;
+    overflow:hidden;
+    text-align:center;
+    box-shadow:0 5px 18px rgba(0,0,0,0.10);
+    transition:0.3s;
+    padding-bottom:20px;
+}
+
+.card:hover{
+    transform:translateY(-7px);
+    box-shadow:0 10px 25px rgba(0,0,0,0.18);
+}
+
+.card img{
+    width:100%;
+    height:250px;
+    object-fit:cover;
+    display:block;
+}
+
+.card h3{
+    font-size:20px;
+    margin:18px 10px 8px;
+}
+
+.card p{
+    color:#777;
+    min-height:42px;
+    padding:0 12px;
+    line-height:1.4;
+}
+
+.price{
+    font-size:18px;
+    font-weight:bold;
+    margin:12px 0;
+}
+
+.btn{
+    background:#111827;
+    color:white;
+    border:none;
+    padding:11px 20px;
+    border-radius:7px;
+    cursor:pointer;
+    font-weight:bold;
+}
+
+.btn:hover{
+    background:#2563eb;
+}
+
+/* ABOUT */
+
+.about{
+    background:white;
+    text-align:center;
+}
+
+.about p{
+    max-width:800px;
+    margin:auto;
+    line-height:1.7;
+    color:#666;
+}
+
+.owner{
+    margin-top:20px;
+    font-size:20px;
+    font-weight:bold;
+}
+
+/* CONTACT */
+
+.contact{
+    text-align:center;
+}
+
+.contact p{
+    margin:10px;
+    color:#555;
+}
+
+/* FOOTER */
+
+footer{
+    background:#111827;
+    color:white;
+    text-align:center;
+    padding:25px;
+}
+
+/* CART BUTTON */
+
+#cart{
+    position:fixed;
+    right:20px;
+    bottom:20px;
+    background:#2563eb;
+    color:white;
+    padding:14px 22px;
+    border-radius:30px;
+    font-weight:bold;
+    cursor:pointer;
+    z-index:2000;
+    box-shadow:0 5px 15px rgba(0,0,0,0.25);
+}
+
+#cart:hover{
+    background:#1d4ed8;
+}
+
+/* MODAL */
+
+.modal{
+    display:none;
+    position:fixed;
+    z-index:3000;
+    left:0;
+    top:0;
+    width:100%;
+    height:100%;
+    background:rgba(0,0,0,0.65);
+    overflow:auto;
+}
+
+.modal-content{
+    background:white;
+    width:90%;
+    max-width:550px;
+    margin:5% auto;
+    padding:30px;
+    border-radius:15px;
+    position:relative;
+}
+
+.close{
+    position:absolute;
+    right:20px;
+    top:15px;
+    font-size:28px;
+    cursor:pointer;
+}
+
+.modal h2{
+    margin-bottom:20px;
+}
+
+.cart-item{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    border-bottom:1px solid #ddd;
+    padding:12px 0;
+}
+
+.cart-item button{
+    background:#ef4444;
+    color:white;
+    border:none;
+    padding:5px 9px;
+    border-radius:5px;
+    cursor:pointer;
+}
+
+.total{
+    text-align:right;
+    font-size:21px;
+    font-weight:bold;
+    margin:20px 0;
+}
+
+/* CHECKOUT FORM */
+
+.form-group{
+    margin-bottom:15px;
+}
+
+.form-group label{
+    display:block;
+    font-weight:bold;
+    margin-bottom:6px;
+}
+
+.form-group input,
+.form-group textarea,
+.form-group select{
+    width:100%;
+    padding:12px;
+    border:1px solid #ccc;
+    border-radius:7px;
+    font-size:15px;
+}
+
+.form-group textarea{
+    height:80px;
+    resize:none;
+}
+
+.checkout-btn{
+    width:100%;
+    background:#16a34a;
+    color:white;
+    border:none;
+    padding:14px;
+    border-radius:8px;
+    font-size:16px;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+.checkout-btn:hover{
+    background:#15803d;
+}
+
+/* ORDER SUCCESS */
+
+.success{
+    text-align:center;
+    padding:20px;
+}
+
+.success h2{
+    color:#16a34a;
+    margin-bottom:15px;
+}
+
+.order-number{
+    font-weight:bold;
+    margin:15px 0;
+}
+
+/* MOBILE */
+
+@media(max-width:700px){
+
+    header{
+        flex-direction:column;
+        gap:15px;
+    }
+
+    nav a{
+        margin:0 7px;
+    }
+
+    .hero h2{
+        font-size:30px;
+    }
+
+    .card img{
+        height:220px;
+    }
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<!-- HEADER -->
+
+<header>
+
+<div class="logo">
+
+<div class="logo-icon">🎨</div>
+
+<div>
+
+<h1>3D Toy World</h1>
+
+<p>Custom 3D Printed Toys & Masks</p>
+
+</div>
+
+</div>
+
+
+<nav>
+
+<a href="#home">Home</a>
+<a href="#toys">Toys</a>
+<a href="#about">About</a>
+<a href="#contact">Contact</a>
+
+</nav>
+
+</header>
+
+
+
+<!-- HERO -->
+
+<section class="hero" id="home">
+
+<h2>Welcome to 3D Toy World</h2>
+
+<p>
+Discover amazing 3D printed toys, masks and collectibles.
+</p>
+
+</section>
+
+
+
+<!-- PRODUCTS -->
+
+<section id="toys">
+
+<h2 class="section-title">Our Collection</h2>
+
+
+<div class="products">
+
+
+<!-- DEADPOOL -->
+
+<div class="card">
+
+<img src="IMAGES/deadpool.jpg" alt="Deadpool Mask">
+
+<h3>Deadpool Mask</h3>
+
+<p>Cool 3D printed Deadpool mask.</p>
+
+<div class="price">₹499</div>
+
+<button class="btn"
+onclick="addToCart('Deadpool Mask',499)">
+Add to Cart
+</button>
+
+</div>
+
+
+
+<!-- BLACK PANTHER -->
+
+<div class="card">
+
+<img src="IMAGES/blackpanther.jpg" alt="Black Panther Mask">
+
+<h3>Black Panther</h3>
+
+<p>Detailed 3D printed Black Panther mask.</p>
+
+<div class="price">₹599</div>
+
+<button class="btn"
+onclick="addToCart('Black Panther',599)">
+Add to Cart
+</button>
+
+</div>
+
+
+
+<!-- CUSTOM -->
+
+<div class="card">
+
+<img src="IMAGES/custom.jpg" alt="Custom Mask">
+
+<h3>Custom Mask</h3>
+
+<p>Unique custom 3D printed design.</p>
+
+<div class="price">₹499</div>
+
+<button class="btn"
+onclick="addToCart('Custom Mask',499)">
+Add to Cart
+</button>
+
+</div>
+
+
+
+<!-- SPIDER MAN -->
+
+<div class="card">
+
+<img src="IMAGES/amazing%20spider%20man.jpg"
+alt="Spider Man Mask">
+
+<h3>Spider Man</h3>
+
+<p>Classic 3D printed Spider Man mask.</p>
+
+<div class="price">₹599</div>
+
+<button class="btn"
+onclick="addToCart('Spider Man',599)">
+Add to Cart
+</button>
+
+</div>
+
+
+
+<!-- BLACK SPIDER MAN -->
+
+<div class="card">
+
+<img src="IMAGES/black%20spider%20man.jpg"
+alt="Black Spider Man Mask">
+
+<h3>Black Spider Man</h3>
+
+<p>Stylish black Spider Man mask.</p>
+
+<div class="price">₹649</div>
+
+<button class="btn"
+onclick="addToCart('Black Spider Man',649)">
+Add to Cart
+</button>
+
+</div>
+
+
+
+<!-- DAREDEVIL -->
+
+<div class="card">
+
+<img src="IMAGES/daredevil.jpg"
+alt="Daredevil Mask">
+
+<h3>Daredevil</h3>
+
+<p>Premium Daredevil inspired mask.</p>
+
+<div class="price">₹599</div>
+
+<button class="btn"
+onclick="addToCart('Daredevil',599)">
+Add to Cart
+</button>
+
+</div>
+
+
+
+<!-- DOCTOR DOOM -->
+
+<div class="card">
+
+<img src="IMAGES/dr%20doom.jpg"
+alt="Doctor Doom Mask">
+
+<h3>Doctor Doom</h3>
+
+<p>Detailed metallic warrior mask.</p>
+
+<div class="price">₹699</div>
+
+<button class="btn"
+onclick="addToCart('Doctor Doom',699)">
+Add to Cart
+</button>
+
+</div>
+
+
+
+<!-- IRON MAN -->
+
+<div class="card">
+
+<img src="IMAGES/ironman.jpg"
+alt="Iron Man Mask">
+
+<h3>Iron Man</h3>
+
+<p>Classic Iron Man 3D printed mask.</p>
+
+<div class="price">₹699</div>
+
+<button class="btn"
+onclick="addToCart('Iron Man',699)">
+Add to Cart
+</button>
+
+</div>
+
+
+</div>
+
+</section>
+
+
+
+<!-- ABOUT -->
+
+<section class="about" id="about">
+
+<h2 class="section-title">
+About 3D Toy World
+</h2>
+
+<p>
+
+Welcome to 3D Toy World! We create unique and creative
+3D printed toys, masks and collectibles made with passion
+and creativity. Our goal is to bring imagination to life
+through 3D printing.
+
+</p>
+
+<div class="owner">
+
+Owner: Daud Gill
+
+</div>
+
+</section>
+
+
+
+<!-- CONTACT -->
+
+<section class="contact" id="contact">
+
+<h2 class="section-title">
+Contact Us
+</h2>
+
+<p>📧 Email: 3dtoyworld@example.com</p>
+
+<p>📱 Phone: +91 62390 54176</p>
+
+<p>📍 Punjab, India</p>
+
+</section>
+
+
+
+<!-- FOOTER -->
+
+<footer>
+
+© 2026 3D Toy World | Owned by Daud Gill
+
+</footer>
+
+
+
+<!-- CART BUTTON -->
+
+<div id="cart" onclick="openCart()">
+
+🛒 Cart: <span id="cartCount">0</span>
+
+</div>
+
+
+
+<!-- CART MODAL -->
+
+<div id="cartModal" class="modal">
+
+<div class="modal-content">
+
+<span class="close"
+onclick="closeCart()">
+&times;
+</span>
+
+<h2>🛒 Your Cart</h2>
+
+<div id="cartItems"></div>
+
+<div class="total">
+
+Total: ₹<span id="cartTotal">0</span>
+
+</div>
+
+<button class="checkout-btn"
+onclick="openCheckout()">
+
+Proceed to Checkout
+
+</button>
+
+</div>
+
+</div>
+
+
+
+<!-- CHECKOUT MODAL -->
+
+<div id="checkoutModal" class="modal">
+
+<div class="modal-content">
+
+<span class="close"
+onclick="closeCheckout()">
+&times;
+</span>
+
+<h2>Checkout</h2>
+
+
+<div class="form-group">
+
+<label>Full Name</label>
+
+<input
+type="text"
+id="customerName"
+placeholder="Enter your name"
+>
+
+</div>
+
+
+
+<div class="form-group">
+
+<label>Phone Number</label>
+
+<input
+type="tel"
+id="customerPhone"
+placeholder="Enter your phone number"
+>
+
+</div>
+
+
+
+<div class="form-group">
+
+<label>Delivery Address</label>
+
+<textarea
+id="customerAddress"
+placeholder="Enter your complete delivery address">
+</textarea>
+
+</div>
+
+
+
+<div class="form-group">
+
+<label>Payment Method</label>
+
+<select id="paymentMethod">
+
+<option value="UPI">
+UPI
+</option>
+
+<option value="Card">
+Credit / Debit Card
+</option>
+
+<option value="COD">
+Cash on Delivery
+</option>
+
+</select>
+
+</div>
+
+
+
+<button
+class="checkout-btn"
+onclick="placeOrder()">
+
+Place Order
+
+</button>
+
+</div>
+
+</div>
+
+
+
+<!-- SUCCESS MODAL -->
+
+<div id="successModal" class="modal">
+
+<div class="modal-content success">
+
+<h2>🎉 Order Placed!</h2>
+
+<p>
+Thank you for shopping with 3D Toy World.
+</p>
+
+<div class="order-number">
+
+Order ID:
+<span id="orderNumber"></span>
+
+</div>
+
+<p>
+We will contact you regarding your order.
+</p>
+
+<br>
+
+<button
+class="btn"
+onclick="closeSuccess()">
+
+Done
+
+</button>
+
+</div>
+
+</div>
+
+
+
+<script>
+
+
+let cart = [];
+
+
+
+/* ADD TO CART */
+
+function addToCart(name, price){
+
+let existing = cart.find(item => item.name === name);
+
+if(existing){
+
+existing.quantity++;
+
+}else{
+
+cart.push({
+
+name:name,
+price:price,
+quantity:1
+
+});
+
+}
+
+updateCart();
+
+alert(name + " added to cart! 🛒");
+
+}
+
+
+
+/* UPDATE CART */
+
+function updateCart(){
+
+let count = 0;
+let total = 0;
+
+cart.forEach(item => {
+
+count += item.quantity;
+
+total += item.price * item.quantity;
+
+});
+
+
+document.getElementById("cartCount").innerText = count;
+
+document.getElementById("cartTotal").innerText = total;
+
+}
+
+
+
+/* OPEN CART */
+
+function openCart(){
+
+displayCart();
+
+document.getElementById("cartModal").style.display = "block";
+
+}
+
+
+
+/* CLOSE CART */
+
+function closeCart(){
+
+document.getElementById("cartModal").style.display = "none";
+
+}
+
+
+
+/* DISPLAY CART */
+
+function displayCart(){
+
+let container =
+document.getElementById("cartItems");
+
+container.innerHTML = "";
+
+
+if(cart.length === 0){
+
+container.innerHTML =
+"<p>Your cart is empty.</p>";
+
+return;
+
+}
+
+
+cart.forEach((item,index)=>{
+
+let div =
+document.createElement("div");
+
+div.className = "cart-item";
+
+
+div.innerHTML = `
+
+<div>
+
+<strong>${item.name}</strong>
+
+<br>
+
+₹${item.price} × ${item.quantity}
+
+</div>
+
+<div>
+
+<button onclick="removeItem(${index})">
+Remove
+</button>
+
+</div>
+
+`;
+
+container.appendChild(div);
+
+});
+
+}
+
+
+
+/* REMOVE ITEM */
+
+function removeItem(index){
+
+cart.splice(index,1);
+
+updateCart();
+
+displayCart();
+
+}
+
+
+
+/* CHECKOUT */
+
+function openCheckout(){
+
+if(cart.length === 0){
+
+alert("Your cart is empty!");
+
+return;
+
+}
+
+closeCart();
+
+document.getElementById("checkoutModal").style.display = "block";
+
+}
+
+
+
+/* CLOSE CHECKOUT */
+
+function closeCheckout(){
+
+document.getElementById("checkoutModal").style.display = "none";
+
+}
+
+
+
+/* PLACE ORDER */
+
+function placeOrder(){
+
+let name =
+document.getElementById("customerName").value.trim();
+
+let phone =
+document.getElementById("customerPhone").value.trim();
+
+let address =
+document.getElementById("customerAddress").value.trim();
+
+let payment =
+document.getElementById("paymentMethod").value;
+
+
+if(name === "" ||
+phone === "" ||
+address === ""){
+
+alert("Please fill in all details.");
+
+return;
+
+}
+
+
+let orderID =
+"3DTW" +
+Math.floor(100000 + Math.random() * 900000);
+
+
+document.getElementById("orderNumber").innerText =
+orderID;
+
+
+closeCheckout();
+
+document.getElementById("successModal").style.display =
+"block";
+
+
+cart = [];
+
+updateCart();
+
+}
+
+
+
+/* CLOSE SUCCESS */
+
+function closeSuccess(){
+
+document.getElementById("successModal").style.display =
+"none";
+
+}
+
+
+
+/* CLOSE MODAL WHEN CLICKING OUTSIDE */
+
+window.onclick = function(event){
+
+if(event.target.classList.contains("modal")){
+
+event.target.style.display = "none";
+
+}
+
+}
+
+
+</script>
+
+
+</body>
+
+</html>
